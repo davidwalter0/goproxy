@@ -14,8 +14,8 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/elazarl/goproxy"
-	"github.com/elazarl/goproxy/ext/auth"
+	"github.com/davidwalter0/goproxy"
+	"github.com/davidwalter0/goproxy/ext/auth"
 )
 
 type ConstantHanlder string
@@ -27,8 +27,8 @@ func (h ConstantHanlder) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func oneShotProxy(proxy *goproxy.ProxyHttpServer) (client *http.Client, s *httptest.Server) {
 	s = httptest.NewServer(proxy)
 
-	proxyUrl, _ := url.Parse(s.URL)
-	tr := &http.Transport{Proxy: http.ProxyURL(proxyUrl)}
+	proxyURL, _ := url.Parse(s.URL)
+	tr := &http.Transport{Proxy: http.ProxyURL(proxyURL)}
 	client = &http.Client{Transport: tr}
 	return
 }

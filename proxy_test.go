@@ -1,4 +1,4 @@
-package goproxy_test
+package goproxy // import "github.com/davidwalter0/goproxy"_test
 
 import (
 	"bufio"
@@ -18,8 +18,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/elazarl/goproxy"
-	"github.com/elazarl/goproxy/ext/image"
+	"github.com/davidwalter0/goproxy"
+	"github.com/davidwalter0/goproxy/ext/image"
 )
 
 var acceptAllCerts = &tls.Config{InsecureSkipVerify: true}

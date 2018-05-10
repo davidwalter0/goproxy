@@ -1,4 +1,4 @@
-package goproxy
+package goproxy // import "github.com/davidwalter0/goproxy"
 
 import (
 	"crypto/aes"

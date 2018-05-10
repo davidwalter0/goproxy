@@ -2,7 +2,6 @@ package main
 
 import (
 	"crypto/tls"
-	"github.com/ecordell/goproxy"
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
@@ -11,6 +10,8 @@ import (
 	"os/signal"
 	"sync"
 	"time"
+
+	"github.com/davidwalter0/goproxy"
 )
 
 var upgrader = websocket.Upgrader{} // use default options

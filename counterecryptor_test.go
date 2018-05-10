@@ -1,10 +1,10 @@
-package goproxy_test
+package goproxy // import "github.com/davidwalter0/goproxy"_test
 
 import (
 	"bytes"
 	"crypto/rsa"
 	"encoding/binary"
-	"github.com/elazarl/goproxy"
+	"github.com/davidwalter0/goproxy"
 	"io"
 	"math"
 	"math/rand"

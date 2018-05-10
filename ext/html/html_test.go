@@ -1,8 +1,8 @@
 package goproxy_html_test
 
 import (
-	"github.com/elazarl/goproxy"
-	"github.com/elazarl/goproxy/ext/html"
+	"github.com/davidwalter0/goproxy"
+	"github.com/davidwalter0/goproxy/ext/html"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -32,8 +32,8 @@ func TestCharset(t *testing.T) {
 	proxyServer := httptest.NewServer(proxy)
 	defer proxyServer.Close()
 
-	proxyUrl, _ := url.Parse(proxyServer.URL)
-	client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyUrl)}}
+	proxyURL, _ := url.Parse(proxyServer.URL)
+	client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyURL)}}
 
 	resp, err := client.Get(s.URL + "/cp1255.txt")
 	if err != nil {
