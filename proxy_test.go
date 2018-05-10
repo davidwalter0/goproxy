@@ -1,4 +1,4 @@
-package goproxy // import "github.com/davidwalter0/goproxy"_test
+package goproxy_test // import "github.com/davidwalter0/goproxy"
 
 import (
 	"bufio"
@@ -40,13 +40,13 @@ func (QueryHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 }
 
 func init() {
-	http.DefaultServeMux.Handle("/bobo", ConstantHanlder("bobo"))
+	http.DefaultServeMux.Handle("/bobo", ConstantHandler("bobo"))
 	http.DefaultServeMux.Handle("/query", QueryHandler{})
 }
 
-type ConstantHanlder string
+type ConstantHandler string
 
-func (h ConstantHanlder) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h ConstantHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, string(h))
 }
 
@@ -436,7 +436,7 @@ func TestSimpleMitm(t *testing.T) {
 
 func TestConnectHandler(t *testing.T) {
 	proxy := goproxy.NewProxyHttpServer()
-	althttps := httptest.NewTLSServer(ConstantHanlder("althttps"))
+	althttps := httptest.NewTLSServer(ConstantHandler("althttps"))
 	proxy.OnRequest().HandleConnectFunc(func(host string, ctx *goproxy.ProxyCtx) (*goproxy.ConnectAction, string) {
 		u, _ := url.Parse(althttps.URL)
 		return goproxy.OkConnect, u.Host
@@ -666,13 +666,13 @@ func TestGoproxyHijackConnect(t *testing.T) {
 	proxy := goproxy.NewProxyHttpServer()
 	proxy.OnRequest(goproxy.ReqHostIs(srv.Listener.Addr().String())).
 		HijackConnect(func(req *http.Request, client net.Conn, ctx *goproxy.ProxyCtx) {
-		t.Logf("URL %+#v\nSTR %s", req.URL, req.URL.String())
-		resp, err := http.Get("http:" + req.URL.String() + "/bobo")
-		panicOnErr(err, "http.Get(CONNECT url)")
-		panicOnErr(resp.Write(client), "resp.Write(client)")
-		resp.Body.Close()
-		client.Close()
-	})
+			t.Logf("URL %+#v\nSTR %s", req.URL, req.URL.String())
+			resp, err := http.Get("http:" + req.URL.String() + "/bobo")
+			panicOnErr(err, "http.Get(CONNECT url)")
+			panicOnErr(resp.Write(client), "resp.Write(client)")
+			resp.Body.Close()
+			client.Close()
+		})
 	client, l := oneShotProxy(proxy, t)
 	defer l.Close()
 	proxyAddr := l.Listener.Addr().String()

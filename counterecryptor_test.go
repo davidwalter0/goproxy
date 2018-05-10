@@ -1,4 +1,4 @@
-package goproxy // import "github.com/davidwalter0/goproxy"_test
+package goproxy_test // import "github.com/davidwalter0/goproxy"
 
 import (
 	"bytes"
